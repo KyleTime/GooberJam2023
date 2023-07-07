@@ -13,7 +13,7 @@ public class GoofyMeter : MonoBehaviour
     bool decay = false;
 
     [Header("Display")]
-    public Transform Fill; //the inner part of the tension bar
+    public Transform BarAnchor; //controls the inner part of the tension bar
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,14 @@ public class GoofyMeter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!decay)
+        UpdateTension();
+
+        DisplayTension();
+    }
+
+    void UpdateTension()
+    {
+        if (!decay)
         {
             tension += Time.deltaTime / tenseSeconds;
 
@@ -37,8 +44,8 @@ public class GoofyMeter : MonoBehaviour
         else
         {
             tension -= Time.deltaTime / decaySeconds;
-            
-            if(tension < 0)
+
+            if (tension < 0)
             {
                 tension = 0;
             }
@@ -47,7 +54,7 @@ public class GoofyMeter : MonoBehaviour
 
     void DisplayTension()
     {
-
+        BarAnchor.localScale = new Vector3(tension, 1);
     }
 
     void Scare(float power)
