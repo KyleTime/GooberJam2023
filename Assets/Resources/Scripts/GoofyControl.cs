@@ -29,8 +29,9 @@ public class GoofyControl : MonoBehaviour
     void CheckAround()
     {
         float nextTheta = direction;
-        float rayLength = 4;
-        
+        float rayLength = 2;
+
+        int numChecks = 0; //check how many times we see a wall
         for(int i = 0; i < 5; i++)
         {
             float rayTheta = direction + (i - 2) * Mathf.PI / 4;
@@ -41,6 +42,7 @@ public class GoofyControl : MonoBehaviour
             if(rays[i].collider != null)
             {
                 rotatae = -(rayTheta - nextTheta) * Mathf.Abs(i - 2) * (rayLength / (rays[i].distance + 0.01f)) * Time.deltaTime;
+                numChecks++;
             }
             else
             {
@@ -51,11 +53,15 @@ public class GoofyControl : MonoBehaviour
         }
 
         direction = nextTheta;
+
+        if (numChecks < 4)
+            TowardsGoal(numChecks);
     }
 
-    void TowardsGoal()
+    void TowardsGoal(int numHits)
     {
-
+        float thetaToGoal = Mathf.Atan2(goal.position.y - transform.position.y, goal.position.x - transform.position.x);
+        direction = RotateTheta(direction, Mathf.Clamp((thetaToGoal - direction) * (4f / (numHits + 1f)) * Time.deltaTime, -Mathf.PI / 6, Mathf.PI / 6));
     }
 
     void Move()
