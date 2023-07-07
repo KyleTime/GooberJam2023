@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    public static Transform playerPos;
     Rigidbody2D rgd;
 
     float vertical;
@@ -14,6 +15,7 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerPos = GetComponent<Transform>();
         rgd = GetComponent<Rigidbody2D>();
     }
 
