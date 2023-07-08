@@ -7,7 +7,7 @@ public class GoofyMeter : MonoBehaviour
     public static GoofyMeter inst;
     
     [Header("Settings")]
-    static float tension = 0;
+    public static float tension = 0;
     public float tenseSeconds = 1; //how many seconds it takes to fully become tense
     public float decaySeconds = 1; //how many seconds it takes to fully lose tension
     bool decay = true;
@@ -24,6 +24,9 @@ public class GoofyMeter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Level.END)
+            return;
+
         UpdateTension();
 
         DisplayTension();
@@ -62,12 +65,13 @@ public class GoofyMeter : MonoBehaviour
 
     public static void FearParalyze(float power)
     {
-        Scare(power);
+        Tense(power);
 
         GoofyControl.inst.Paralyze(Mathf.Abs(power) * 20);
     }
 
-    public static void Scare(float power)
+    //used to increment Tension
+    public static void Tense(float power)
     {
         tension += power;
 
@@ -76,5 +80,20 @@ public class GoofyMeter : MonoBehaviour
         inst.decay = false;
     }
 
+    //used to release tension and score points
+    public static void Scare(float power)
+    {
+        tension -= power;
 
+        float score = power;
+
+        if(tension < 0)
+        {
+            score = tension + power;
+        }
+
+        Level.Score(score); //send score to Level for calculations
+
+        tension = Mathf.Clamp(tension, 0, 1);        
+    }
 }

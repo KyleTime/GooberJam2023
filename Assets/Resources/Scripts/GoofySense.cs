@@ -15,7 +15,10 @@ public class GoofySense : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Level.END)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.F))
         {
             Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Sound(mouse, 5, 0.1f);

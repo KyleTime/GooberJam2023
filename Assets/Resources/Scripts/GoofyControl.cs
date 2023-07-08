@@ -35,7 +35,10 @@ public class GoofyControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(stunTimer > 0)
+        if (Level.END)
+            return;
+
+        if (stunTimer > 0)
         {
             stunTimer -= Time.deltaTime;
             return;
@@ -58,7 +61,7 @@ public class GoofyControl : MonoBehaviour
     void CheckAround()
     {
         float nextTheta = direction;
-        float rayLength = 2;
+        float rayLength = 3;
 
         int numChecks = 0; //check how many times we see a wall
         for(int i = 0; i < 5; i++)
@@ -66,6 +69,13 @@ public class GoofyControl : MonoBehaviour
             float rayTheta = direction + (i - 2) * Mathf.PI / 4;
 
             rays[i] = Physics2D.Raycast(transform.position, GetDirection(rayTheta), rayLength);
+
+            if(state != State.Fearing && rays[i].collider != null && rays[i].collider.CompareTag("Player"))
+            {
+                Fear(0.2f, rays[i].point);
+                GoofyMeter.Scare(0.2f);
+                return;
+            }
 
             float rotatae = 0;
             if(rays[i].collider != null)
@@ -124,7 +134,7 @@ public class GoofyControl : MonoBehaviour
         }
         else if(state == State.Fearing)
         {
-            magnitude = 2;
+            magnitude = 12;
         }
     }
 
@@ -158,7 +168,6 @@ public class GoofyControl : MonoBehaviour
         fear.position = position;
         state = State.Fearing;
         fearTimer = fearTime;
-        GoofyMeter.Scare(power);
     }
 
     private void OnDrawGizmos()
