@@ -6,7 +6,10 @@ public class MainMenu : MonoBehaviour
 {
     public List<GameObject> buttonList;
 
-    float currentButton = 0;
+    public GameObject levelSelectMenu;
+    GameObject mainMenu;
+
+    int currentButton = 0;
 
     List<Vector3> initialButtonSizes = new List<Vector3>();
     public float hoverSizeIncrease;
@@ -14,6 +17,10 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        levelSelectMenu.SetActive(false);
+
+        //mainMenu = GameObject.Find("MainMenu");
+
         foreach (GameObject curButtonObj in buttonList)
         {
             initialButtonSizes.Add(curButtonObj.transform.localScale);
@@ -24,21 +31,27 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("down"))
+        if(gameObject.activeInHierarchy)
         {
-            currentButton = (currentButton + 1) % buttonList.Count;
-            SizeButtons();
-            print(currentButton);
-        }
-        if (Input.GetKeyDown("up"))
-        {
-            currentButton = (buttonList.Count + currentButton - 1) % buttonList.Count;
-            SizeButtons();
-            print(currentButton);
-        }
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            print("hi");
+            if (Input.GetKeyDown("down"))
+            {
+                currentButton = (currentButton + 1) % buttonList.Count;
+                SizeButtons();
+            }
+            if (Input.GetKeyDown("up"))
+            {
+                currentButton = (buttonList.Count + currentButton - 1) % buttonList.Count;
+                SizeButtons();
+            }
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                string nameOfButton = buttonList[currentButton].name;
+                if (nameOfButton == "LevelSelect")
+                {
+                    levelSelectMenu.SetActive(true);
+                    gameObject.SetActive(false);
+                }
+            }
         }
     }
 
