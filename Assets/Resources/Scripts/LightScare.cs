@@ -26,6 +26,9 @@ public class LightScare : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Level.END)
+            return;
+
         if (switchEnabled)
         {
             distFromPlayer = Vector3.Distance(PlayerControl.playerPos.position, transform.position);
@@ -37,7 +40,7 @@ public class LightScare : MonoBehaviour
 
                     Invoke(nameof(EnableSwitch), switchCooldown);
                     
-                    GoofyMeter.FearParalyze(-0.1f);
+                    GoofyMeter.FearParalyze(0.05f);
                 }
             }
         }
