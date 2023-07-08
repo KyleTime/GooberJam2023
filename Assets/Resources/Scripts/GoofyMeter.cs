@@ -15,8 +15,6 @@ public class GoofyMeter : MonoBehaviour
     [Header("Display")]
     public Transform BarAnchor; //controls the inner part of the tension bar
 
-    Vector2 goalPos;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +31,9 @@ public class GoofyMeter : MonoBehaviour
 
     void UpdateTension()
     {
+        if (GoofyControl.inst.stunTimer > 0)
+            return;
+
         if (!decay)
         {
             tension += Time.deltaTime / tenseSeconds;
@@ -63,12 +64,17 @@ public class GoofyMeter : MonoBehaviour
     {
         Scare(power);
 
-        GoofyControl.inst.Paralyze(power * 5);
+        GoofyControl.inst.Paralyze(Mathf.Abs(power) * 20);
     }
 
     public static void Scare(float power)
     {
-        tension -= power;
+        tension += power;
+
+        tension = Mathf.Clamp(tension, 0, 1);
+
         inst.decay = false;
     }
+
+
 }
