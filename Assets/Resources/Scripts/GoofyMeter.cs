@@ -10,10 +10,12 @@ public class GoofyMeter : MonoBehaviour
     static float tension = 0;
     public float tenseSeconds = 1; //how many seconds it takes to fully become tense
     public float decaySeconds = 1; //how many seconds it takes to fully lose tension
-    bool decay = false;
+    bool decay = true;
 
     [Header("Display")]
     public Transform BarAnchor; //controls the inner part of the tension bar
+
+    Vector2 goalPos;
 
     // Start is called before the first frame update
     void Start()
@@ -57,9 +59,16 @@ public class GoofyMeter : MonoBehaviour
         BarAnchor.localScale = new Vector3(tension, 1);
     }
 
-    void Scare(float power)
+    public static void FearParalyze(float power)
+    {
+        Scare(power);
+
+        GoofyControl.inst.Paralyze(power * 5);
+    }
+
+    public static void Scare(float power)
     {
         tension -= power;
-        decay = false;
+        inst.decay = false;
     }
 }
