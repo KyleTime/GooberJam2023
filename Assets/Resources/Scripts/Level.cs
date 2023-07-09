@@ -7,6 +7,7 @@ public class Level : MonoBehaviour
     public static Level inst;
 
     public static bool END = false;
+    bool init = false;
 
     public int score = 0;
     public int requiredScore = 1000;
@@ -24,6 +25,11 @@ public class Level : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!init)
+        {
+            //animation here
+        }
+
         if (Level.END)
             return;
 

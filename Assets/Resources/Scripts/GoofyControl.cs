@@ -36,7 +36,13 @@ public class GoofyControl : MonoBehaviour
     void Update()
     {
         print(direction);
-        if((direction > ToRadians(337.5f) && direction <= ToRadians(360)) || (direction >= ToRadians(0) && direction < ToRadians(22.5f))){
+
+        if(direction > -Mathf.PI/6 && direction < Mathf.PI/6 || direction > Mathf.PI*2 - Mathf.PI/6 && )
+        {
+            print("right");
+        }
+
+        /*if((direction > ToRadians(337.5f) && direction <= ToRadians(360)) || (direction >= ToRadians(0) && direction < ToRadians(22.5f))){
             print("up");
         }
         if((direction < ToRadians(337.5f) && direction > ToRadians(292.5f)))
@@ -66,7 +72,7 @@ public class GoofyControl : MonoBehaviour
         if(direction>ToRadians(22.5f) && direction<ToRadians(67.5f))
         {
             print("right up");
-        }
+        }*/
         if (Level.END)
             return;
 
@@ -93,7 +99,7 @@ public class GoofyControl : MonoBehaviour
     void CheckAround()
     {
         float nextTheta = direction;
-        float rayLength = 2;
+        float rayLength = 3;
 
         int numChecks = 0; //check how many times we see a wall
         for(int i = 0; i < 5; i++)

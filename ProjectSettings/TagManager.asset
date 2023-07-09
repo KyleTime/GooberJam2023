@@ -45,3 +45,6 @@ TagManager:
   - name: UI
     uniqueID: 3222917117
     locked: 0
+  - name: Intro Graphic
+    uniqueID: 1428426225
+    locked: 0
