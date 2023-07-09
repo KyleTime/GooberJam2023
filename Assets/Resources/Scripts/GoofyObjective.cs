@@ -8,10 +8,12 @@ public class GoofyObjective : MonoBehaviour
     public bool active = false;
     public bool complete = false;
 
+    SpriteRenderer spr;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        spr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -24,6 +26,19 @@ public class GoofyObjective : MonoBehaviour
         {
             complete = true;
             GoofyControl.inst.Paralyze(2f);
+            StartCoroutine(ColorChange());
+        }
+    }
+
+    public IEnumerator ColorChange()
+    {
+        float t = 0;
+        while(t < 1)
+        {
+            spr.color = Color.Lerp(Color.white, Color.yellow, t);
+            t += Time.deltaTime / 2;
+
+            yield return null;
         }
     }
 }

@@ -65,10 +65,13 @@ public class PlayerControl : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
-        if(horizontal != 0 || vertical != 0)
+        if (horizontal != 0 || vertical != 0)
         {
             dir = new Vector2Int((int)horizontal, (int)vertical);
+            anim.SetFloat("speed", 1);
         }
+        else
+            anim.SetFloat("speed", 0);
 
         switch(dir.x)
         {
