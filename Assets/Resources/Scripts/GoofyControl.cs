@@ -61,7 +61,7 @@ public class GoofyControl : MonoBehaviour
     void CheckAround()
     {
         float nextTheta = direction;
-        float rayLength = 3;
+        float rayLength = 2;
 
         int numChecks = 0; //check how many times we see a wall
         for(int i = 0; i < 5; i++)
@@ -69,14 +69,6 @@ public class GoofyControl : MonoBehaviour
             float rayTheta = direction + (i - 2) * Mathf.PI / 4;
 
             rays[i] = Physics2D.Raycast(transform.position, GetDirection(rayTheta), rayLength);
-
-            if(state != State.Fearing && rays[i].collider != null && rays[i].collider.CompareTag("Player"))
-            {
-                Fear(rays[i].point);
-                GoofyMeter.Scare(0.2f);
-                fearRange = 5;
-                return;
-            }
 
             float rotatae = 0;
             if(rays[i].collider != null)
@@ -92,14 +84,29 @@ public class GoofyControl : MonoBehaviour
             nextTheta = RotateTheta(nextTheta, rotatae);
         }
 
+        //monster detection
+        for (int i = 0; i < 5; i++)
+        {
+            float rayTheta = direction + (i - 2) * Mathf.PI / 4;
+
+            rays[i] = Physics2D.Raycast(transform.position, GetDirection(rayTheta), 5);
+
+            if (state != State.Fearing && rays[i].collider != null && rays[i].collider.CompareTag("Player"))
+            {
+                Fear(rays[i].point);
+                GoofyMeter.Scare(0.2f);
+                fearRange = 5;
+                return;
+            }
+        }
+
         direction = nextTheta;
 
-        if (state == State.Following && numChecks < 4)
+        if (state == State.Following && numChecks < 3)
             TowardsGoal(numChecks);
         
         if (state == State.Fearing)
             AwayFromFear();
-        
     }
 
     void TowardsGoal(int numHits)

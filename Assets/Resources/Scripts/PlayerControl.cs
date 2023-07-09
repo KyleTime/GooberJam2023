@@ -70,7 +70,7 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
-        rgd.velocity = new Vector2(horizontal * speed, vertical * speed * speedMod);
+        rgd.velocity = new Vector2(horizontal * speed * speedMod, vertical * speed * speedMod);
     }
 
     void Jumpscare()
