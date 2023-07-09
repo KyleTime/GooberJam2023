@@ -51,6 +51,10 @@ public class MainMenu : MonoBehaviour
                     levelSelectMenu.SetActive(true);
                     gameObject.SetActive(false);
                 }
+                if (nameOfButton == "Quit")
+                {
+                    Application.Quit();
+                }
             }
         }
     }
