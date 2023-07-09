@@ -75,7 +75,7 @@ public class PlayerControl : MonoBehaviour
 
     void Jumpscare()
     {
-        jumpTime = 1;
+        jumpTime = 0.2f;
         rgd.velocity = (GoofyControl.inst.transform.position - transform.position).normalized * speed * 10;
     }
 }
