@@ -32,47 +32,54 @@ public class GoofyControl : MonoBehaviour
         inst = this;
     }
 
+    bool Direction(int bing)
+    {
+        float offset = Mathf.PI / 8;
+        float dir = bing * (Mathf.PI / 4);
+
+        float posDir = (direction + Mathf.PI * 2) % (Mathf.PI * 2);
+
+        return (dir - posDir > -offset && dir - posDir < offset || dir - posDir > Mathf.PI * 2 - offset && dir - posDir < -Mathf.PI * 2 + offset);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        print(direction);
+        //print(direction);
 
-        if(direction > -Mathf.PI/6 && direction < Mathf.PI/6 || direction > Mathf.PI*2 - Mathf.PI/6 && )
+        if(Direction(0))
         {
-            print("right");
+            Debug.Log("Right");
+        }
+        else if (Direction(1))
+        {
+            Debug.Log("Up Right");
+        }
+        else if (Direction(2))
+        {
+            Debug.Log("Up");
+        }
+        else if (Direction(3))
+        {
+            Debug.Log("Up Left");
+        }
+        else if (Direction(4))
+        {
+            Debug.Log("Left");
+        }
+        else if (Direction(5))
+        {
+            Debug.Log("Down Left");
+        }
+        else if (Direction(6))
+        {
+            Debug.Log("Down");
+        }
+        else if (Direction(7))
+        {
+            Debug.Log("Down Right");
         }
 
-        /*if((direction > ToRadians(337.5f) && direction <= ToRadians(360)) || (direction >= ToRadians(0) && direction < ToRadians(22.5f))){
-            print("up");
-        }
-        if((direction < ToRadians(337.5f) && direction > ToRadians(292.5f)))
-        {
-            print("left up");
-        }
-        if(direction>ToRadians(247.5f) && direction < ToRadians(292.5f))
-        {
-            print("left");
-        }
-        if(direction>ToRadians(202.5f) && direction<ToRadians(247.5f))
-        {
-            print("down left");
-        }
-        if(direction>ToRadians(157.5f) && direction < ToRadians(202.5f))
-        {
-            print("down");
-        }
-        if(direction>ToRadians(112.5f) && direction<ToRadians(157.5f))
-        {
-            print("down right");
-        }
-        if(direction>ToRadians(67.5f) && direction<ToRadians(112.5f))
-        {
-            print("right");
-        }
-        if(direction>ToRadians(22.5f) && direction<ToRadians(67.5f))
-        {
-            print("right up");
-        }*/
         if (Level.END)
             return;
 
