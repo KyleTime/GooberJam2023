@@ -63,9 +63,9 @@ public class PlayerControl : MonoBehaviour
         {
             speedMod = 0.33f;
             //you took a step
-            if(Vector2.Distance(steppyStart, transform.position) > 2)
+            if(Vector2.Distance(steppyStart, transform.position) > 1)
             {
-                GoofySense.Sound(transform.position, 12, -0.01f);
+                GoofySense.Sound(transform.position, 12, -0.04f);
                 steppyStart = transform.position;
             }
         }

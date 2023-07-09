@@ -58,7 +58,7 @@ public class Door : MonoBehaviour
 
         if(!open)
         {
-            GoofySense.Sound(transform.position, 7f, -0.3f);
+            GoofySense.Sound(transform.position, 15f, 0.3f);
         }
     }
 }
