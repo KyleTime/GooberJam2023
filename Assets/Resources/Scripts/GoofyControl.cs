@@ -35,6 +35,38 @@ public class GoofyControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(direction);
+        if((direction > ToRadians(337.5f) && direction <= ToRadians(360)) || (direction >= ToRadians(0) && direction < ToRadians(22.5f))){
+            print("up");
+        }
+        if((direction < ToRadians(337.5f) && direction > ToRadians(292.5f)))
+        {
+            print("left up");
+        }
+        if(direction>ToRadians(247.5f) && direction < ToRadians(292.5f))
+        {
+            print("left");
+        }
+        if(direction>ToRadians(202.5f) && direction<ToRadians(247.5f))
+        {
+            print("down left");
+        }
+        if(direction>ToRadians(157.5f) && direction < ToRadians(202.5f))
+        {
+            print("down");
+        }
+        if(direction>ToRadians(112.5f) && direction<ToRadians(157.5f))
+        {
+            print("down right");
+        }
+        if(direction>ToRadians(67.5f) && direction<ToRadians(112.5f))
+        {
+            print("right");
+        }
+        if(direction>ToRadians(22.5f) && direction<ToRadians(67.5f))
+        {
+            print("right up");
+        }
         if (Level.END)
             return;
 
@@ -192,5 +224,10 @@ public class GoofyControl : MonoBehaviour
         Gizmos.color = Color.green;
 
         Gizmos.DrawLine(transform.position, transform.position + GetDirection(direction) * 5);
+    }
+
+    float ToRadians(float deg)
+    {
+        return deg * Mathf.Deg2Rad;
     }
 }
