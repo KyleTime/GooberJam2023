@@ -9,7 +9,7 @@ public class GoofyControl : MonoBehaviour
     public enum State { Following, Wandering, Fearing }
 
     public float fearRange = 5;
-    const float fearTime = 5;
+    const float fearTime = 3;
     float fearTimer = 0;
 
     //stun stuff
@@ -72,8 +72,9 @@ public class GoofyControl : MonoBehaviour
 
             if(state != State.Fearing && rays[i].collider != null && rays[i].collider.CompareTag("Player"))
             {
-                Fear(0.2f, rays[i].point);
+                Fear(rays[i].point);
                 GoofyMeter.Scare(0.2f);
+                fearRange = 5;
                 return;
             }
 
@@ -126,6 +127,7 @@ public class GoofyControl : MonoBehaviour
     {
         if (state == State.Following)
         {
+            magnitude = maxSpeed;
             float dist = Vector2.Distance(transform.position, goal.position);
             if (dist < 2)
             {
@@ -163,7 +165,7 @@ public class GoofyControl : MonoBehaviour
         stunTimer = time;
     }
 
-    public void Fear(float power, Vector2 position)
+    public void Fear(Vector2 position)
     {
         fear.position = position;
         state = State.Fearing;

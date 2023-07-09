@@ -35,6 +35,16 @@ public class GoofySense : MonoBehaviour
         if (Vector2.Distance(inst.transform.position, location) > range)
             return;
 
-        GoofyControl.inst.Fear(power, location);
+        GoofyControl.inst.Fear(location);
+        GoofyControl.inst.fearRange = range;
+        
+        if(power > 0)
+        {
+            GoofyMeter.Scare(power);
+        }
+        else
+        {
+            GoofyMeter.Tense(-power);
+        }
     }
 }

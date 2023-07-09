@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5711418489889627644
+--- !u!1 &787355148052774670
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2565451199445472334}
-  - component: {fileID: 5579686170442416787}
-  - component: {fileID: 8982170810043010025}
-  - component: {fileID: 3030118760779271477}
-  - component: {fileID: 2577310061046059835}
+  - component: {fileID: 3595326925271377473}
+  - component: {fileID: 7763061273070598910}
+  - component: {fileID: 7859046111781352883}
   m_Layer: 0
-  m_Name: Goofy
+  m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2565451199445472334
+--- !u!4 &3595326925271377473
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5711418489889627644}
+  m_GameObject: {fileID: 787355148052774670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.69, y: -0.95, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5579686170442416787
+--- !u!212 &7763061273070598910
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5711418489889627644}
+  m_GameObject: {fileID: 787355148052774670}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,61 +74,28 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5b4b1573f8aa46741b179694cd0c0a5a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8982170810043010025
+--- !u!114 &7859046111781352883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5711418489889627644}
+  m_GameObject: {fileID: 787355148052774670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f3fccbdcb0ef2e448ffb332584fa04e, type: 3}
+  m_Script: {fileID: 11500000, guid: 067c7e14a6f51f446ba9c5d516d04192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fearRange: 5
-  stunTimer: 0
-  state: 0
-  direction: 0
-  magnitude: 1
-  maxSpeed: 1
-  goal: {fileID: 0}
-  fear: {fileID: 0}
---- !u!114 &3030118760779271477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5711418489889627644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79b0b721d5dfca04a9ed6c9a59c46e2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tenseSeconds: 120
-  decaySeconds: 140
-  BarAnchor: {fileID: 0}
---- !u!114 &2577310061046059835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5711418489889627644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6453c24df68d4dc4db548cb17d5d5bb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  open: 0
+  interactDistance: 2

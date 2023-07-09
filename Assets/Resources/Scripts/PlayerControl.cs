@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    public static PlayerControl inst;
+
     public static Transform playerPos;
-    Rigidbody2D rgd;
+    public Rigidbody2D rgd;
 
     float vertical;
     float horizontal;
@@ -15,10 +17,13 @@ public class PlayerControl : MonoBehaviour
     public float jumpTime = 0;
     public float cooldown = 0;
 
+    public Vector2 steppyStart;
+
     // Start is called before the first frame update
     void Start()
     {
-        playerPos = GetComponent<Transform>();
+        inst = this;
+        playerPos = transform;
         rgd = GetComponent<Rigidbody2D>();
     }
 
@@ -32,7 +37,7 @@ public class PlayerControl : MonoBehaviour
         {
             jumpTime -= Time.deltaTime;
 
-            if(Vector2.Distance(transform.position, GoofyControl.inst.transform.position) < 1f)
+            if(rgd.velocity.magnitude > 10 && Vector2.Distance(transform.position, GoofyControl.inst.transform.position) < 1f)
             {
                 Debug.Log("JUMP SCARE!");
                 Level.JUMPSCARE();
@@ -44,12 +49,28 @@ public class PlayerControl : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
-        rgd.velocity = new Vector2(horizontal * speed, vertical * speed);
-
-        if(Input.GetKeyDown(KeyCode.Space))
+        float speedMod = 1;
+        if(Input.GetKeyDown(KeyCode.Z))
         {
             Jumpscare();
+            return;
         }
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            steppyStart = transform.position;
+        }
+        else if(Input.GetKey(KeyCode.X))
+        {
+            speedMod = 0.33f;
+            //you took a step
+            if(Vector2.Distance(steppyStart, transform.position) > 2)
+            {
+                GoofySense.Sound(transform.position, 12, -0.01f);
+                steppyStart = transform.position;
+            }
+        }
+
+        rgd.velocity = new Vector2(horizontal * speed, vertical * speed * speedMod);
     }
 
     void Jumpscare()

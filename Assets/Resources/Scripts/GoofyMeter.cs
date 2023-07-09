@@ -34,7 +34,7 @@ public class GoofyMeter : MonoBehaviour
 
     void UpdateTension()
     {
-        if (GoofyControl.inst.stunTimer > 0)
+        if (GoofyControl.inst.stunTimer > 0 || GoofyControl.inst.state == GoofyControl.State.Fearing)
             return;
 
         if (!decay)
@@ -73,6 +73,9 @@ public class GoofyMeter : MonoBehaviour
     //used to increment Tension
     public static void Tense(float power)
     {
+        if (GoofyControl.inst.state == GoofyControl.State.Fearing)
+            power /= 2;
+
         tension += power;
 
         tension = Mathf.Clamp(tension, 0, 1);

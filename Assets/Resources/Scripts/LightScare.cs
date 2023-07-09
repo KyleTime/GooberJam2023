@@ -34,7 +34,7 @@ public class LightScare : MonoBehaviour
             distFromPlayer = Vector3.Distance(PlayerControl.playerPos.position, transform.position);
             if (distFromPlayer < maxDistance)
             {
-                if (Input.GetKey(KeyCode.E))
+                if (Input.GetKey(KeyCode.Space))
                 {
                     switchEnabled = false;
 

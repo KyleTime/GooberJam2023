@@ -31,6 +31,12 @@ public class Level : MonoBehaviour
         {
             currentNode++;
 
+            if (currentNode > nodes.Length - 1)
+            {
+                ESCAPED();
+                return;
+            }
+
             choose = true;
 
             //Debug.Log("NODE LENGTH: " + nodes.Length);
@@ -47,7 +53,8 @@ public class Level : MonoBehaviour
     {
         int addScore = (int)((power + 1f) * (power + 1f) * 100) - 100;
         addScore *= 2;
-        addScore += 10 - addScore % 10;
+        if(addScore > 0)
+            addScore += 10 - addScore % 10;
         Debug.Log("SCORED " + addScore + " POINTS!");
         inst.score += addScore;
     }
@@ -61,5 +68,11 @@ public class Level : MonoBehaviour
         END = true;
 
         //TODO: jumpscare animation
+    }
+
+    public static void ESCAPED()
+    {
+        Debug.Log("Final Score was: " + inst.score);
+        END = true;
     }
 }
