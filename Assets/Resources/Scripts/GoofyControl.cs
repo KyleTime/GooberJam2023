@@ -16,7 +16,6 @@ public class GoofyControl : MonoBehaviour
     public float stunTimer = 0;
     public State state;
 
-
     public float direction = 0; //direction we're currently moving in (radians)
     public float magnitude = 0; //current speed of the character 
     public float maxSpeed = 1; //max speed of the character
@@ -25,11 +24,13 @@ public class GoofyControl : MonoBehaviour
     public Transform fear;
 
     RaycastHit2D[] rays = new RaycastHit2D[5];
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         inst = this;
+        anim = GetComponent<Animator>();
     }
 
     bool Direction(int bing)
@@ -42,49 +43,45 @@ public class GoofyControl : MonoBehaviour
         return (dir - posDir > -offset && dir - posDir < offset || dir - posDir > Mathf.PI * 2 - offset && dir - posDir < -Mathf.PI * 2 + offset);
     }
 
+    bool Animate(int bing, string idle, string run)
+    {
+        if (Direction(bing))
+        {
+            if (anim.GetFloat("speed") == 0)
+            {
+                anim.Play(idle);
+            }
+            else
+            {
+                anim.Play(run);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
     // Update is called once per frame
     void Update()
     {
         //print(direction);
 
-        if(Direction(0))
-        {
-            Debug.Log("Right");
-        }
-        else if (Direction(1))
-        {
-            Debug.Log("Up Right");
-        }
-        else if (Direction(2))
-        {
-            Debug.Log("Up");
-        }
-        else if (Direction(3))
-        {
-            Debug.Log("Up Left");
-        }
-        else if (Direction(4))
-        {
-            Debug.Log("Left");
-        }
-        else if (Direction(5))
-        {
-            Debug.Log("Down Left");
-        }
-        else if (Direction(6))
-        {
-            Debug.Log("Down");
-        }
-        else if (Direction(7))
-        {
-            Debug.Log("Down Right");
-        }
+        if (!Animate(0, "IdleRight", "RunRight"))
+            if (!Animate(1, "IdleUpRight", "RunUpRight"))
+                if (!Animate(2, "IdleUp", "RunUp"))
+                    if (!Animate(3, "IdleUpLeft", "RunUpLeft"))
+                        if (!Animate(4, "IdleLeft", "RunLeft"))
+                            if (!Animate(5, "IdleDownLeft", "RunDownLeft"))
+                                if (!Animate(6, "IdleDown", "RunDown"))
+                                    if (!Animate(7, "IdleDownRight", "RunDownRight")) { }
 
         if (Level.END)
             return;
 
         if (stunTimer > 0)
         {
+            anim.SetFloat("speed", 0);
             stunTimer -= Time.deltaTime;
             return;
         }
@@ -169,6 +166,7 @@ public class GoofyControl : MonoBehaviour
     void Move()
     {
         transform.position += GetDirection(direction) * magnitude * Time.deltaTime;
+        anim.SetFloat("speed", magnitude);
 
         if (state == State.Fearing && Vector2.Distance(transform.position, fear.position) > fearRange)
             state = State.Following;

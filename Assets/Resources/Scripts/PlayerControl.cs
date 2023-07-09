@@ -19,12 +19,28 @@ public class PlayerControl : MonoBehaviour
 
     public Vector2 steppyStart;
 
+    public Vector2Int dir = new Vector2Int();
+    Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
         inst = this;
         playerPos = transform;
         rgd = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+    }
+
+    void Animate(string idle, string run)
+    {
+        if (anim.GetFloat("speed") == 0)
+        {
+            anim.Play(idle);
+        }
+        else
+        {
+            anim.Play(run);
+        }
     }
 
     // Update is called once per frame
@@ -48,6 +64,54 @@ public class PlayerControl : MonoBehaviour
 
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
+
+        if(horizontal != 0 || vertical != 0)
+        {
+            dir = new Vector2Int((int)horizontal, (int)vertical);
+        }
+
+        switch(dir.x)
+        {
+            case 0:
+                switch(dir.y)
+                {
+                    case 1:
+                        Animate("IdleUp", "RunUp");
+                        break;
+                    case -1:
+                        Animate("IdleDown", "RunDown");
+                        break;
+                }    
+                break;
+            case 1:
+                switch (dir.y)
+                {
+                    case 0:
+                        Animate("IdleRight", "RunRight");
+                        break;
+                    case -1:
+                        Animate("IdleDownRight", "RunDownRight");
+                        break;
+                    case 1:
+                        Animate("IdleUpRight", "RunUpRight");
+                        break;
+                }
+                break;
+            case -1:
+                switch (dir.y)
+                {
+                    case 0:
+                        Animate("IdleLeft", "RunLeft");
+                        break;
+                    case -1:
+                        Animate("IdleDownLeft", "RunDownLeft");
+                        break;
+                    case 1:
+                        Animate("IdleUpLeft", "RunUpLeft");
+                        break;
+                }
+                break;
+        }
 
         float speedMod = 1;
         if(Input.GetKeyDown(KeyCode.Z))
